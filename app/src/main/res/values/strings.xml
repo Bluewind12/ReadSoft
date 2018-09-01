@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">ReadSoft</string>
+    <string name="readTextHint">ここに読み上げ文を入力</string>
+    <string name="read">読み上げ</string>
+    <string name="option">オプション</string>
 </resources>
