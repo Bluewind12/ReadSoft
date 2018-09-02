@@ -28,14 +28,15 @@ class MainActivity : AppCompatActivity() {
         readButton.setOnClickListener {
             val readStrings = editText.text.split("")
             val readString = editText.text
+            val utteranceId = this.hashCode().toString() + ""  //utteranceIdの取得
             for (i in 0 until readStrings.size - 1) {
                 Log.d("ReadString" + i + "：", readStrings[i])
+                if (tts.isSpeaking) {
+                    tts.stop()
+                }
+                tts.speak(readStrings[i], TextToSpeech.QUEUE_ADD, null, utteranceId)
             }
-            if (tts.isSpeaking) {
-                tts.stop()
-            }
-            val utteranceId = this.hashCode().toString() + ""  //utteranceIdの取得
-            tts.speak(readString, TextToSpeech.QUEUE_FLUSH, null, utteranceId)
+
         }
     }
 
