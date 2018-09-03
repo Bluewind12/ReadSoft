@@ -448,12 +448,12 @@ class MainActivity : AppCompatActivity() {
                 soundPool.play(specialSounds[22], 1.0f, 1.0f, 0, 0, 1.0f)
                 sleepWait(2500)
             }
-            "<" -> {
+            "＜" -> {
                 //わかるマン
                 soundPool.play(specialSounds[23], 1.0f, 1.0f, 0, 0, 1.0f)
                 sleepWait(2200)
             }
-            ">" -> {
+            "＞" -> {
                 //わかるマン（間奏入り）
                 soundPool.play(specialSounds[24], 1.0f, 1.0f, 0, 0, 1.0f)
                 sleepWait(5400)

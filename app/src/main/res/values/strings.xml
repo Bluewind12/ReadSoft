@@ -2,5 +2,40 @@
     <string name="app_name">ReadSoft</string>
     <string name="readTextHint">ここに読み上げ文を入力</string>
     <string name="read">読み上げ</string>
-    <string name="option">オプション</string>
+    <string name="option">特殊ボイス一覧</string>
+    <string name="exVoice">
+        <center>「音楽系」</center>\n
+        [イ]:\tイントロ\n
+        [間]:\t間奏\n
+        [T]:\tテン☆\n\n
+        <center>「歌詞系」</center>\n
+        [力]:\t悪魔の力身につけた\n
+        [誰]:\tあれは誰だ、誰だ、誰だ\n
+        [捨]:\tすべてを捨てて戦う男\n\n
+        <center>「マン系」</center>\n
+        [1]:\tまん！（短）\n
+        [2]:\tまん！（中）\n
+        [3]:\tまん！（長）\n
+        [4]:\tまん！（下げ）\n\n
+        <center>「あー！系」</center>\n
+        [!]:\tあー！\n
+        [！]:\tあー！（伸ばし）\n\n
+        <center>「デビル〇〇系」</center>\n
+        [目]:\tデビルアイ\n
+        [矢]:\tデビルアロー\n
+        [耳]:\tデビルイヤー\n
+        [切]:\tデビルカッター\n
+        [蹴]:\tデビルキック\n
+        [殴]:\tデビルチョップ\n
+        [羽]:\tデビルウィング\n\n
+        <center>「キメラボイス」</center>\n
+        [好]:\tここ好き\n
+        [～]:\tまあ、それはそれとして\n
+        [謝]:\tすまーん！\n
+        [詫]:\tわびるまーん！\n
+        [＜]:\tわかるまーん！\n
+        [＞]:\tわかるまーん！（間奏入り）\n\n
+        <center>「停止」</center>\n
+        [+]:\t0.5秒の無言\n
+    </string>
 </resources>

@@ -18,7 +18,7 @@
         android:ems="10"
         android:gravity="top"
         android:hint="@string/readTextHint"
-        android:inputType="text"
+        android:inputType="textMultiLine"
         app:layout_constraintBottom_toTopOf="@+id/readStartButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
