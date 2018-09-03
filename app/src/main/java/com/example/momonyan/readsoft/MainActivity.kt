@@ -1,5 +1,6 @@
 package com.example.momonyan.readsoft
 
+import android.content.Intent
 import android.media.SoundPool
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -49,6 +50,10 @@ class MainActivity : AppCompatActivity() {
             for (i in 0 until readStrings.size - 1) {
                 choiseSound(readStrings[i])
             }
+        }
+        optionButton.setOnClickListener {
+            val intent = Intent(this,ExVoiceActivity::class.java)
+            startActivity(intent)
         }
     }
 
