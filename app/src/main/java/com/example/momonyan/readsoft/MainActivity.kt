@@ -1,5 +1,6 @@
 package com.example.momonyan.readsoft
 
+import android.content.Intent
 import android.media.SoundPool
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -49,6 +50,10 @@ class MainActivity : AppCompatActivity() {
             for (i in 0 until readStrings.size - 1) {
                 choiseSound(readStrings[i])
             }
+        }
+        optionButton.setOnClickListener {
+            val intent = Intent(this,ExVoiceActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -327,107 +332,140 @@ class MainActivity : AppCompatActivity() {
                 soundPool.play(japaneseSounds[46], 1.0f, 1.0f, 0, 0, 1.0f)
                 sleepWait(360)
             }
-            "1" -> {
-                soundPool.play(specialSounds[0], 1.0f, 1.0f, 0, 0, 1.0f)
-                sleepWait(1150)
-            }
-            "2" -> {
-                soundPool.play(specialSounds[1], 1.0f, 1.0f, 0, 0, 1.0f)
-                sleepWait(330)
-            }
-            "3" -> {
-                soundPool.play(specialSounds[2], 1.0f, 1.0f, 0, 0, 1.0f)
-                sleepWait(7200)
-            }
-            "4" -> {
-                soundPool.play(specialSounds[3], 1.0f, 1.0f, 0, 0, 1.0f)
-                sleepWait(6900)
-            }
-            "5" -> {
-                soundPool.play(specialSounds[4], 1.0f, 1.0f, 0, 0, 1.0f)
-                sleepWait(330)
-            }
-            "6" -> {
-                soundPool.play(specialSounds[5], 1.0f, 1.0f, 0, 0, 1.0f)
-                sleepWait(1150)
-            }
-            "7" -> {
-                soundPool.play(specialSounds[6], 1.0f, 1.0f, 0, 0, 1.0f)
-                sleepWait(950)
-            }
-            "8" -> {
-                soundPool.play(specialSounds[7], 1.0f, 1.0f, 0, 0, 1.0f)
-                sleepWait(980)
-            }
-            "9" -> {
-                soundPool.play(specialSounds[8], 1.0f, 1.0f, 0, 0, 1.0f)
-                sleepWait(970)
-            }
-            "A" -> {
-                soundPool.play(specialSounds[9], 1.0f, 1.0f, 0, 0, 1.0f)
-                sleepWait(1200)
-            }
-            "B" -> {
-                soundPool.play(specialSounds[10], 1.0f, 1.0f, 0, 0, 1.0f)
-                sleepWait(1000)
-            }
-            "C" -> {
+        //特殊ボイス
+        //曲系
+            "イ" -> {
+                //イントロ
                 soundPool.play(specialSounds[11], 1.0f, 1.0f, 0, 0, 1.0f)
                 sleepWait(2000)
             }
-            "D" -> {
+            "間" -> {
+                //間奏
                 soundPool.play(specialSounds[12], 1.0f, 1.0f, 0, 0, 1.0f)
                 sleepWait(3100)
             }
-            "E" -> {
-                soundPool.play(specialSounds[13], 1.0f, 1.0f, 0, 0, 1.0f)
-                sleepWait(900)
+            "力" -> {
+                //悪魔の力身につけた
+                soundPool.play(specialSounds[2], 1.0f, 1.0f, 0, 0, 1.0f)
+                sleepWait(7200)
             }
-            "F" -> {
-                soundPool.play(specialSounds[14], 1.0f, 1.0f, 0, 0, 1.0f)
-                sleepWait(11000)
+            "誰" -> {
+                //あれは誰だ
+                soundPool.play(specialSounds[3], 1.0f, 1.0f, 0, 0, 1.0f)
+                sleepWait(6900)
             }
-            "G" -> {
-                soundPool.play(specialSounds[15], 1.0f, 1.0f, 0, 0, 1.0f)
-                sleepWait(1500)
-            }
-            "H" -> {
-                soundPool.play(specialSounds[16], 1.0f, 1.0f, 0, 0, 1.0f)
-                sleepWait(770)
-            }
-            "I" -> {
-                soundPool.play(specialSounds[17], 1.0f, 1.0f, 0, 0, 1.0f)
-                sleepWait(1800)
-            }
-            "J" -> {
-                soundPool.play(specialSounds[18], 1.0f, 1.0f, 0, 0, 1.0f)
-                sleepWait(2000)
-            }
-            "K" -> {
+            "捨" -> {
+                //すべてを捨てて戦う男
                 soundPool.play(specialSounds[19], 1.0f, 1.0f, 0, 0, 1.0f)
                 sleepWait(3700)
             }
-            "L" -> {
+        //マン！
+            "1" -> {
+                //まん！（短）
+                soundPool.play(specialSounds[15], 1.0f, 1.0f, 0, 0, 1.0f)
+                sleepWait(1500)
+            }
+            "2" -> {
+                //まーん！（中）
+                soundPool.play(specialSounds[16], 1.0f, 1.0f, 0, 0, 1.0f)
+                sleepWait(770)
+            }
+            "3" -> {
+                //まーーーん！（長）
+                soundPool.play(specialSounds[14], 1.0f, 1.0f, 0, 0, 1.0f)
+                sleepWait(11000)
+            }
+            "4" -> {
+                //まーん！（下げ）
+                soundPool.play(specialSounds[17], 1.0f, 1.0f, 0, 0, 1.0f)
+                sleepWait(1800)
+            }
+        //あー
+            "!" -> {
+                //あー！
+                soundPool.play(specialSounds[0], 1.0f, 1.0f, 0, 0, 1.0f)
+                sleepWait(1150)
+            }
+            "！" -> {
+                //あー！（伸ばし）
+                soundPool.play(specialSounds[1], 1.0f, 1.0f, 0, 0, 1.0f)
+                sleepWait(330)
+            }
+        //デビル
+            "目" -> {
+                //デビルアイ
+                soundPool.play(specialSounds[4], 1.0f, 1.0f, 0, 0, 1.0f)
+                sleepWait(330)
+            }
+            "矢" -> {
+                //デビルアロー
+                soundPool.play(specialSounds[5], 1.0f, 1.0f, 0, 0, 1.0f)
+                sleepWait(1150)
+            }
+            "耳" -> {
+                //デビルイヤー
+                soundPool.play(specialSounds[6], 1.0f, 1.0f, 0, 0, 1.0f)
+                sleepWait(950)
+            }
+            "切" -> {
+                //デビルカッター
+                soundPool.play(specialSounds[7], 1.0f, 1.0f, 0, 0, 1.0f)
+                sleepWait(980)
+            }
+            "足" -> {
+                //デビルキック
+                soundPool.play(specialSounds[8], 1.0f, 1.0f, 0, 0, 1.0f)
+                sleepWait(970)
+            }
+            "殴" -> {
+                //デビルチョップ
+                soundPool.play(specialSounds[9], 1.0f, 1.0f, 0, 0, 1.0f)
+                sleepWait(1200)
+            }
+            "羽" -> {
+                //デビルウィング
+                soundPool.play(specialSounds[10], 1.0f, 1.0f, 0, 0, 1.0f)
+                sleepWait(1000)
+            }
+        //複合ボイス
+            "好" -> {
+                //ここ好き
+                soundPool.play(specialSounds[13], 1.0f, 1.0f, 0, 0, 1.0f)
+                sleepWait(900)
+            }
+            "～" -> {
+                //まあそれはそれとして
+                soundPool.play(specialSounds[18], 1.0f, 1.0f, 0, 0, 1.0f)
+                sleepWait(2000)
+            }
+            "謝" -> {
+                //すまーん！
                 soundPool.play(specialSounds[20], 1.0f, 1.0f, 0, 0, 1.0f)
                 sleepWait(1200)
             }
-            "M" -> {
+            "T" -> {
+                //テン☆
                 soundPool.play(specialSounds[21], 1.0f, 1.0f, 0, 0, 1.0f)
                 sleepWait(440)
             }
-            "N" -> {
+            "詫" -> {
+                //詫びるマン
                 soundPool.play(specialSounds[22], 1.0f, 1.0f, 0, 0, 1.0f)
                 sleepWait(2500)
             }
-            "O" -> {
+            "＜" -> {
+                //わかるマン
                 soundPool.play(specialSounds[23], 1.0f, 1.0f, 0, 0, 1.0f)
                 sleepWait(2200)
             }
-            "P" -> {
+            "＞" -> {
+                //わかるマン（間奏入り）
                 soundPool.play(specialSounds[24], 1.0f, 1.0f, 0, 0, 1.0f)
                 sleepWait(5400)
             }
+        //待機
             "+" -> sleepWait(500)
+
         }
     }
 
