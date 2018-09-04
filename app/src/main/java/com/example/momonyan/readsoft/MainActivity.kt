@@ -8,6 +8,8 @@ import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.SeekBar
+import android.widget.TextView
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -15,10 +17,23 @@ class MainActivity : AppCompatActivity() {
     private lateinit var editText: EditText
     private lateinit var readButton: Button
     private lateinit var optionButton: Button
-    private lateinit var tts: TextToSpeech
+
+    //音量調整用
+    private lateinit var volumeText: TextView
+    private lateinit var volumeSeekBar: SeekBar
+    private var volumeInt: Int = 100
+
+    //待機時間調整用
+    private lateinit var waitText: TextView
+    private lateinit var waitSeekBar: SeekBar
+    private var waitInt: Int = 0
+
+
+    //SE用
     private lateinit var soundPool: SoundPool
     private var japaneseSounds: MutableList<Int> = mutableListOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
     private var specialSounds: MutableList<Int> = mutableListOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -27,39 +42,76 @@ class MainActivity : AppCompatActivity() {
         readButton = findViewById(R.id.readStartButton)
         optionButton = findViewById(R.id.optionButton)
 
-        tts = TextToSpeech(applicationContext, SampleInitListener())  //テキストトゥスピーチオブジェクトの生成と、イベントリスナーの登録
-        tts.language = Locale.JAPANESE  //読み上げる言語の設定
+        volumeText = findViewById(R.id.volumeText)
+        volumeSeekBar = findViewById(R.id.volumeSeek)
+
+        waitText = findViewById(R.id.waitText)
+        waitSeekBar = findViewById(R.id.waitSeek)
+
         soundPool = SoundPool.Builder().build()
 
         loadSounds()
 
+        //SeekBar設定
+        volumeSeekBar.max = 200
+        volumeSeekBar.progress = 100
+        waitSeekBar.max = 1000
+        waitSeekBar.progress = 0
+        volumeText.text = String.format(Locale.JAPANESE, "%d %%", 100)
+        waitText.text = String.format(Locale.JAPANESE, "%d ms", 0)
 
+
+        //動作
         readButton.setOnClickListener {
             val readStrings = editText.text.split("")
-            val readString = editText.text
             val utteranceId = this.hashCode().toString() + ""  //utteranceIdの取得
 
-//            //ttsの再生
-//            for (i in 0 until readStrings.size - 1) {
-//                Log.d("ReadString" + i + "：", readStrings[i])
-//                if (tts.isSpeaking) {
-//                    tts.stop()
-//                }
-//                tts.speak(readStrings[i], TextToSpeech.QUEUE_ADD, null, utteranceId)
-//            }
             for (i in 0 until readStrings.size - 1) {
                 choiseSound(readStrings[i])
             }
         }
         optionButton.setOnClickListener {
-            val intent = Intent(this,ExVoiceActivity::class.java)
+            val intent = Intent(this, ExVoiceActivity::class.java)
             startActivity(intent)
         }
-    }
 
-    internal inner class SampleInitListener : TextToSpeech.OnInitListener {
-        override fun onInit(status: Int) {}
+        //SeekBar
+        volumeSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            //ツマミがドラッグされると呼ばれる
+            override fun onProgressChanged(
+                    seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                // 68 % のようにフォーマト、
+                // この場合、Locale.USが汎用的に推奨される
+                volumeText.text = String.format(Locale.JAPANESE, "%d %%", progress)
+                volumeInt = progress
+            }
 
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+                // ツマミがタッチされた時に呼ばれる
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                // ツマミがリリースされた時に呼ばれる
+            }
+        })
+        waitSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            //ツマミがドラッグされると呼ばれる
+            override fun onProgressChanged(
+                    seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                // 68 % のようにフォーマト、
+                // この場合、Locale.USが汎用的に推奨される
+                waitText.text = String.format(Locale.JAPANESE, "%d ms", progress)
+                waitInt = progress
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+                // ツマミがタッチされた時に呼ばれる
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                // ツマミがリリースされた時に呼ばれる
+            }
+        })
     }
 
     private fun loadSounds() {
@@ -142,331 +194,332 @@ class MainActivity : AppCompatActivity() {
     private fun choiseSound(choiceString: String) {
         when (choiceString) {
             "あ" -> {
-                soundPool.play(japaneseSounds[0], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[0], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(270)
             }
             "い" -> {
-                soundPool.play(japaneseSounds[1], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[1], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(270)
 
             }
             "う" -> {
-                soundPool.play(japaneseSounds[2], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[2], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(250)
 
             }
             "え" -> {
-                soundPool.play(japaneseSounds[3], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[3], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(270)
 
             }
             "お" -> {
-                soundPool.play(japaneseSounds[4], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[4], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(200)
             }
             "か" -> {
-                soundPool.play(japaneseSounds[5], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[5], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(200)
             }
             "き" -> {
-                soundPool.play(japaneseSounds[6], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[6], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(200)
             }
             "く" -> {
-                soundPool.play(japaneseSounds[7], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[7], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(200)
             }
             "け" -> {
-                soundPool.play(japaneseSounds[8], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[8], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(220)
             }
             "こ" -> {
-                soundPool.play(japaneseSounds[9], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[9], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(830)
             }
             "さ" -> {
-                soundPool.play(japaneseSounds[10], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[10], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(180)
             }
             "し" -> {
-                soundPool.play(japaneseSounds[11], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[11], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(200)
             }
             "す" -> {
-                soundPool.play(japaneseSounds[12], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[12], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(430)
             }
             "せ" -> {
-                soundPool.play(japaneseSounds[13], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[13], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(500)
             }
             "そ" -> {
-                soundPool.play(japaneseSounds[14], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[14], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(240)
             }
             "た" -> {
-                soundPool.play(japaneseSounds[15], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[15], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(400)
             }
             "ち" -> {
-                soundPool.play(japaneseSounds[16], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[16], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(350)
             }
             "つ" -> {
-                soundPool.play(japaneseSounds[17], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[17], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(500)
             }
             "て" -> {
-                soundPool.play(japaneseSounds[18], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[18], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(550)
             }
             "と" -> {
-                soundPool.play(japaneseSounds[19], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[19], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(500)
             }
             "な" -> {
-                soundPool.play(japaneseSounds[20], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[20], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(350)
             }
             "に" -> {
-                soundPool.play(japaneseSounds[21], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[21], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(400)
             }
             "ぬ" -> {
-                soundPool.play(japaneseSounds[22], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[22], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(220)
             }
             "ね" -> {
-                soundPool.play(japaneseSounds[23], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[23], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(300)
             }
             "の" -> {
-                soundPool.play(japaneseSounds[24], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[24], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(330)
             }
             "は" -> {
-                soundPool.play(japaneseSounds[25], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[25], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(310)
             }
             "ひ" -> {
-                soundPool.play(japaneseSounds[26], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[26], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(320)
             }
             "ふ" -> {
-                soundPool.play(japaneseSounds[27], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[27], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(220)
             }
             "へ" -> {
-                soundPool.play(japaneseSounds[28], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[28], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(260)
             }
             "ほ" -> {
-                soundPool.play(japaneseSounds[29], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[29], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(160)
             }
             "ま" -> {
-                soundPool.play(japaneseSounds[30], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[30], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(200)
             }
             "み" -> {
-                soundPool.play(japaneseSounds[31], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[31], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(300)
             }
             "む" -> {
-                soundPool.play(japaneseSounds[32], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[32], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(180)
             }
             "め" -> {
-                soundPool.play(japaneseSounds[33], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[33], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(200)
             }
             "も" -> {
-                soundPool.play(japaneseSounds[34], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[34], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(170)
             }
             "や" -> {
-                soundPool.play(japaneseSounds[35], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[35], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(280)
             }
             "ゆ" -> {
-                soundPool.play(japaneseSounds[36], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[36], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(270)
             }
             "よ" -> {
-                soundPool.play(japaneseSounds[37], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[37], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(220)
             }
             "ら" -> {
-                soundPool.play(japaneseSounds[38], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[38], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(290)
             }
             "り" -> {
-                soundPool.play(japaneseSounds[39], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[39], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(250)
             }
             "る" -> {
-                soundPool.play(japaneseSounds[40], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[40], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(230)
             }
             "れ" -> {
-                soundPool.play(japaneseSounds[41], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[41], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(230)
             }
             "ろ" -> {
-                soundPool.play(japaneseSounds[42], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[42], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(260)
             }
             "わ" -> {
-                soundPool.play(japaneseSounds[43], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[43], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(290)
             }
             "を" -> {
-                soundPool.play(japaneseSounds[44], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[44], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(290)
             }
             "ん" -> {
-                soundPool.play(japaneseSounds[45], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[45], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(170)
             }
             "だ" -> {
-                soundPool.play(japaneseSounds[46], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(japaneseSounds[46], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(360)
             }
         //特殊ボイス
         //曲系
             "イ" -> {
                 //イントロ
-                soundPool.play(specialSounds[11], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(specialSounds[11], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(2000)
             }
             "間" -> {
                 //間奏
-                soundPool.play(specialSounds[12], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(specialSounds[12], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(3100)
             }
             "力" -> {
                 //悪魔の力身につけた
-                soundPool.play(specialSounds[2], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(specialSounds[2], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(7200)
             }
             "誰" -> {
                 //あれは誰だ
-                soundPool.play(specialSounds[3], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(specialSounds[3], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(6900)
             }
             "捨" -> {
                 //すべてを捨てて戦う男
-                soundPool.play(specialSounds[19], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(specialSounds[19], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(3700)
             }
         //マン！
             "1" -> {
                 //まん！（短）
-                soundPool.play(specialSounds[15], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(specialSounds[15], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(1500)
             }
             "2" -> {
                 //まーん！（中）
-                soundPool.play(specialSounds[16], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(specialSounds[16], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(770)
             }
             "3" -> {
                 //まーーーん！（長）
-                soundPool.play(specialSounds[14], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(specialSounds[14], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(11000)
             }
             "4" -> {
                 //まーん！（下げ）
-                soundPool.play(specialSounds[17], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(specialSounds[17], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(1800)
             }
         //あー
             "!" -> {
                 //あー！
-                soundPool.play(specialSounds[0], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(specialSounds[0], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(1150)
             }
             "！" -> {
                 //あー！（伸ばし）
-                soundPool.play(specialSounds[1], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(specialSounds[1], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(330)
             }
         //デビル
             "目" -> {
                 //デビルアイ
-                soundPool.play(specialSounds[4], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(specialSounds[4], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(330)
             }
             "矢" -> {
                 //デビルアロー
-                soundPool.play(specialSounds[5], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(specialSounds[5], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(1150)
             }
             "耳" -> {
                 //デビルイヤー
-                soundPool.play(specialSounds[6], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(specialSounds[6], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(950)
             }
             "切" -> {
                 //デビルカッター
-                soundPool.play(specialSounds[7], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(specialSounds[7], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(980)
             }
             "足" -> {
                 //デビルキック
-                soundPool.play(specialSounds[8], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(specialSounds[8], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(970)
             }
             "殴" -> {
                 //デビルチョップ
-                soundPool.play(specialSounds[9], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(specialSounds[9], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(1200)
             }
             "羽" -> {
                 //デビルウィング
-                soundPool.play(specialSounds[10], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(specialSounds[10], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(1000)
             }
         //複合ボイス
             "好" -> {
                 //ここ好き
-                soundPool.play(specialSounds[13], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(specialSounds[13], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(900)
             }
             "～" -> {
                 //まあそれはそれとして
-                soundPool.play(specialSounds[18], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(specialSounds[18], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(2000)
             }
             "謝" -> {
                 //すまーん！
-                soundPool.play(specialSounds[20], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(specialSounds[20], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(1200)
             }
             "T" -> {
                 //テン☆
-                soundPool.play(specialSounds[21], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(specialSounds[21], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(440)
             }
             "詫" -> {
                 //詫びるマン
-                soundPool.play(specialSounds[22], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(specialSounds[22], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(2500)
             }
             "＜" -> {
                 //わかるマン
-                soundPool.play(specialSounds[23], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(specialSounds[23], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(2200)
             }
             "＞" -> {
                 //わかるマン（間奏入り）
-                soundPool.play(specialSounds[24], 1.0f, 1.0f, 0, 0, 1.0f)
+                soundPool.play(specialSounds[24], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(5400)
             }
         //待機
             "+" -> sleepWait(500)
 
         }
+        sleepWait(waitInt.toLong())
     }
 
     private fun sleepWait(ms: Long) {
