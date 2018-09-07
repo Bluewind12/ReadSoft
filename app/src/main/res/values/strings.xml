@@ -2,40 +2,41 @@
     <string name="app_name">ReadSoft</string>
     <string name="readTextHint">ここに読み上げ文を入力</string>
     <string name="read">読み上げ</string>
+
     <string name="option">特殊ボイス一覧</string>
-    <string name="exVoice">
-        <center>「音楽系」</center>\n
-        [イ]:\tイントロ\n
-        [間]:\t間奏\n
-        [T]:\tテン☆\n\n
-        <center>「歌詞系」</center>\n
-        [力]:\t悪魔の力身につけた\n
-        [誰]:\tあれは誰だ、誰だ、誰だ\n
-        [捨]:\tすべてを捨てて戦う男\n\n
-        <center>「マン系」</center>\n
-        [1]:\tまん！（短）\n
-        [2]:\tまん！（中）\n
-        [3]:\tまん！（長）\n
-        [4]:\tまん！（下げ）\n\n
-        <center>「あー！系」</center>\n
-        [!]:\tあー！\n
-        [！]:\tあー！（伸ばし）\n\n
-        <center>「デビル〇〇系」</center>\n
-        [目]:\tデビルアイ\n
-        [矢]:\tデビルアロー\n
-        [耳]:\tデビルイヤー\n
-        [切]:\tデビルカッター\n
-        [蹴]:\tデビルキック\n
-        [殴]:\tデビルチョップ\n
-        [羽]:\tデビルウィング\n\n
-        <center>「キメラボイス」</center>\n
-        [好]:\tここ好き\n
-        [～]:\tまあ、それはそれとして\n
-        [謝]:\tすまーん！\n
-        [詫]:\tわびるまーん！\n
-        [＜]:\tわかるまーん！\n
-        [＞]:\tわかるまーん！（間奏入り）\n\n
-        <center>「停止」</center>\n
-        [+]:\t0.5秒の無言\n
-    </string>
+
+    <string name="exVoice0">「音楽系」</string>
+    <string name="exVoice1">\t[イ]:イントロ</string>
+    <string name="exVoice2">\t[間]:間奏</string>
+    <string name="exVoice3">\t[T]:テン☆</string>
+    <string name="exVoice4">「歌詞系」</string>
+    <string name="exVoice5">\t[力]:悪魔の力身につけた</string>
+    <string name="exVoice6">\t[誰]:あれは誰だ、誰だ、誰だ</string>
+    <string name="exVoice7">\t[捨]:すべてを捨てて戦う男</string>
+    <string name="exVoice8">「マン系」</string>
+    <string name="exVoice9">\t[1]:まん！（短）</string>
+    <string name="exVoice10">\t[2]:まん！（中）</string>
+    <string name="exVoice11">\t[3]:まん！（長）</string>
+    <string name="exVoice12">\t[4]:まん！（下げ）</string>
+    <string name="exVoice13">「あー！系」</string>
+    <string name="exVoice14">\t[!]:あー！</string>
+    <string name="exVoice15">\t[！]:あー！（伸ばし）</string>
+    <string name="exVoice16">「デビル〇〇系」</string>
+    <string name="exVoice17">\t[目]:デビルアイ</string>
+    <string name="exVoice18">\t[矢]:デビルアロー</string>
+    <string name="exVoice19">\t[耳]:デビルイヤー</string>
+    <string name="exVoice20">\t[切]:デビルカッター</string>
+    <string name="exVoice21">\t[蹴]:デビルキック</string>
+    <string name="exVoice22">\t[殴]:デビルチョップ</string>
+    <string name="exVoice23">\t[羽]:デビルウィング</string>
+    <string name="exVoice24">「キメラボイス」</string>
+    <string name="exVoice25">\t[好]:ここ好き</string>
+    <string name="exVoice26">\t[～]:まあ、それはそれとして</string>
+    <string name="exVoice27">\t[謝]:すまーん！</string>
+    <string name="exVoice28">\t[詫]:わびるまーん！</string>
+    <string name="exVoice29">\t[＜]:わかるまーん！</string>
+    <string name="exVoice30">\t[＞]:わかるまーん！（間奏入り）</string>
+    <string name="exVoice31">「停止」</string>
+    <string name="exVoice32">\t[+]:0.5秒の無言</string>
+
 </resources>
