@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Button
 import android.widget.EditText
 
-class melodyActivity : AppCompatActivity() {
+class MelodyActivity : AppCompatActivity() {
     private lateinit var nameEditText: EditText
     private lateinit var startButton: Button
     private val sound = MainActivity()
@@ -18,6 +18,7 @@ class melodyActivity : AppCompatActivity() {
 
         setContentView(nameEditText)
         setContentView(startButton)
+
         startButton.setOnClickListener {
             sound.choiseSound("イ")
             sound.choiseSound("誰")

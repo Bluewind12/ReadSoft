@@ -19,6 +19,9 @@
         <activity
             android:name=".ExVoiceActivity"
             android:label="@string/option" />
+        <activity
+            android:name=".MelodyActivity"
+            android:label="簡単音楽再生" />
     </application>
 
 </manifest>

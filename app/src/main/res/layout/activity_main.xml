@@ -28,7 +28,6 @@
         android:id="@+id/readStartButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:text="@string/read"
         app:layout_constraintBottom_toTopOf="@+id/optionButton"
         app:layout_constraintStart_toStartOf="@+id/optionButton" />
@@ -37,10 +36,9 @@
         android:id="@+id/optionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/option"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/melodyButton"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
@@ -83,4 +81,14 @@
         app:layout_constraintEnd_toStartOf="@+id/optionButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/waitText" />
+
+    <Button
+        android:id="@+id/melodyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:text="簡単読み上げ"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/waitSeek" />
 </android.support.constraint.ConstraintLayout>
