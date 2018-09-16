@@ -12,6 +12,12 @@ class melodyActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        nameEditText.hint = "名前の入力"
+        nameEditText.inputType = 1
+        startButton.text = "読み上げ"
+
+        setContentView(nameEditText)
+        setContentView(startButton)
         startButton.setOnClickListener {
             sound.choiseSound("イ")
             sound.choiseSound("誰")
