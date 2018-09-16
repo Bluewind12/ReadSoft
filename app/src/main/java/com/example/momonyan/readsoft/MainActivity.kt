@@ -191,7 +191,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun choiseSound(choiceString: String) {
+    public fun choiseSound(choiceString: String) {
         when (choiceString) {
             "あ" -> {
                 soundPool.play(japaneseSounds[0], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
