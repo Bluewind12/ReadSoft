@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var editText: EditText
     private lateinit var readButton: Button
     private lateinit var optionButton: Button
-
+private lateinit var melodyButton: Button
     //音量調整用
     private lateinit var volumeText: TextView
     private lateinit var volumeSeekBar: SeekBar
@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         editText = findViewById(R.id.readEditText)
         readButton = findViewById(R.id.readStartButton)
         optionButton = findViewById(R.id.optionButton)
+        melodyButton = findViewById(R.id.melodyButton)
 
         volumeText = findViewById(R.id.volumeText)
         volumeSeekBar = findViewById(R.id.volumeSeek)
@@ -72,6 +73,10 @@ class MainActivity : AppCompatActivity() {
         }
         optionButton.setOnClickListener {
             val intent = Intent(this, ExVoiceActivity::class.java)
+            startActivity(intent)
+        }
+        melodyButton.setOnClickListener {
+            val intent = Intent(this,MelodyActivity::class.java)
             startActivity(intent)
         }
 
@@ -112,6 +117,7 @@ class MainActivity : AppCompatActivity() {
                 // ツマミがリリースされた時に呼ばれる
             }
         })
+
     }
 
     private fun loadSounds() {
@@ -191,7 +197,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun choiseSound(choiceString: String) {
+    fun choiseSound(choiceString: String) {
         when (choiceString) {
             "あ" -> {
                 soundPool.play(japaneseSounds[0], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
