@@ -65,10 +65,10 @@ private lateinit var melodyButton: Button
         //動作
         readButton.setOnClickListener {
             val readStrings = editText.text.split("")
-            Thread{
-                for (i in 0 until readStrings.size - 1) {
-                    choiseSound(readStrings[i])
-                }
+            val utteranceId = this.hashCode().toString() + ""  //utteranceIdの取得
+
+            for (i in 0 until readStrings.size - 1) {
+                choiseSound(readStrings[i])
             }
         }
         optionButton.setOnClickListener {
