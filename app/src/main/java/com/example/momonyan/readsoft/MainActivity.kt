@@ -63,9 +63,11 @@ class MainActivity : AppCompatActivity() {
         //動作
         readButton.setOnClickListener {
             val readStrings = editText.text.split("")
-            for (i in 0 until readStrings.size - 1) {
-                choiseSound(readStrings[i])
-            }
+            Thread {
+                for (i in 0 until readStrings.size - 1) {
+                    choiseSound(readStrings[i])
+                }
+            }.start()
         }
         optionButton.setOnClickListener {
             val intent = Intent(this, ExVoiceActivity::class.java)
