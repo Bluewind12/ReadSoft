@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var editText: EditText
     private lateinit var readButton: Button
     private lateinit var optionButton: Button
-private lateinit var melodyButton: Button
+    private lateinit var melodyButton: Button
     //音量調整用
     private lateinit var volumeText: TextView
     private lateinit var volumeSeekBar: SeekBar
@@ -65,8 +65,6 @@ private lateinit var melodyButton: Button
         //動作
         readButton.setOnClickListener {
             val readStrings = editText.text.split("")
-            val utteranceId = this.hashCode().toString() + ""  //utteranceIdの取得
-
             for (i in 0 until readStrings.size - 1) {
                 choiseSound(readStrings[i])
             }
@@ -76,7 +74,7 @@ private lateinit var melodyButton: Button
             startActivity(intent)
         }
         melodyButton.setOnClickListener {
-            val intent = Intent(this,MelodyActivity::class.java)
+            val intent = Intent(this, MelodyActivity::class.java)
             startActivity(intent)
         }
 
@@ -390,8 +388,8 @@ private lateinit var melodyButton: Button
                 soundPool.play(japaneseSounds[46], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(360)
             }
-        //特殊ボイス
-        //曲系
+            //特殊ボイス
+            //曲系
             "イ" -> {
                 //イントロ
                 soundPool.play(specialSounds[11], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
@@ -417,7 +415,7 @@ private lateinit var melodyButton: Button
                 soundPool.play(specialSounds[19], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(3700)
             }
-        //マン！
+            //マン！
             "1" -> {
                 //まん！（短）
                 soundPool.play(specialSounds[15], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
@@ -438,7 +436,7 @@ private lateinit var melodyButton: Button
                 soundPool.play(specialSounds[17], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(1800)
             }
-        //あー
+            //あー
             "!" -> {
                 //あー！
                 soundPool.play(specialSounds[0], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
@@ -449,7 +447,7 @@ private lateinit var melodyButton: Button
                 soundPool.play(specialSounds[1], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(330)
             }
-        //デビル
+            //デビル
             "目" -> {
                 //デビルアイ
                 soundPool.play(specialSounds[4], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
@@ -485,7 +483,7 @@ private lateinit var melodyButton: Button
                 soundPool.play(specialSounds[10], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(1000)
             }
-        //複合ボイス
+            //複合ボイス
             "好" -> {
                 //ここ好き
                 soundPool.play(specialSounds[13], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
@@ -521,7 +519,7 @@ private lateinit var melodyButton: Button
                 soundPool.play(specialSounds[24], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
                 sleepWait(5400)
             }
-        //待機
+            //待機
             "+" -> sleepWait(500)
 
         }
