@@ -1,5 +1,6 @@
 package com.example.momonyan.readsoft
 
+import android.content.Context
 import android.content.Intent
 import android.media.SoundPool
 import android.support.v7.app.AppCompatActivity
@@ -11,7 +12,6 @@ import android.widget.TextView
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var editText: EditText
     private lateinit var readButton: Button
     private lateinit var optionButton: Button
@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var waitText: TextView
     private lateinit var waitSeekBar: SeekBar
     private var waitInt: Int = 0
-
 
     //SE用
     private lateinit var soundPool: SoundPool
@@ -47,9 +46,8 @@ class MainActivity : AppCompatActivity() {
         waitText = findViewById(R.id.waitText)
         waitSeekBar = findViewById(R.id.waitSeek)
 
-        soundPool = SoundPool.Builder().build()
 
-        loadSounds()
+        loadSounds(this)
 
         //SeekBar設定
         volumeSeekBar.max = 200
@@ -118,80 +116,81 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun loadSounds() {
-        japaneseSounds[0] = soundPool.load(this, R.raw.a, 1)
-        japaneseSounds[1] = soundPool.load(this, R.raw.i, 1)
-        japaneseSounds[2] = soundPool.load(this, R.raw.u, 1)
-        japaneseSounds[3] = soundPool.load(this, R.raw.e, 1)
-        japaneseSounds[4] = soundPool.load(this, R.raw.o, 1)
-        japaneseSounds[5] = soundPool.load(this, R.raw.ka, 1)
-        japaneseSounds[6] = soundPool.load(this, R.raw.ki, 1)
-        japaneseSounds[7] = soundPool.load(this, R.raw.ku, 1)
-        japaneseSounds[8] = soundPool.load(this, R.raw.ke, 1)
-        japaneseSounds[9] = soundPool.load(this, R.raw.ko, 1)
-        japaneseSounds[10] = soundPool.load(this, R.raw.sa, 1)
-        japaneseSounds[11] = soundPool.load(this, R.raw.si, 1)
-        japaneseSounds[12] = soundPool.load(this, R.raw.su, 1)
-        japaneseSounds[13] = soundPool.load(this, R.raw.se, 1)
-        japaneseSounds[14] = soundPool.load(this, R.raw.so, 1)
-        japaneseSounds[15] = soundPool.load(this, R.raw.ta, 1)
-        japaneseSounds[16] = soundPool.load(this, R.raw.ti, 1)
-        japaneseSounds[17] = soundPool.load(this, R.raw.tu, 1)
-        japaneseSounds[18] = soundPool.load(this, R.raw.te, 1)
-        japaneseSounds[19] = soundPool.load(this, R.raw.to, 1)
-        japaneseSounds[20] = soundPool.load(this, R.raw.na, 1)
-        japaneseSounds[21] = soundPool.load(this, R.raw.ni, 1)
-        japaneseSounds[22] = soundPool.load(this, R.raw.nu, 1)
-        japaneseSounds[23] = soundPool.load(this, R.raw.ne, 1)
-        japaneseSounds[24] = soundPool.load(this, R.raw.no, 1)
-        japaneseSounds[25] = soundPool.load(this, R.raw.ha, 1)
-        japaneseSounds[26] = soundPool.load(this, R.raw.hi, 1)
-        japaneseSounds[27] = soundPool.load(this, R.raw.hu, 1)
-        japaneseSounds[28] = soundPool.load(this, R.raw.he, 1)
-        japaneseSounds[29] = soundPool.load(this, R.raw.ho, 1)
-        japaneseSounds[30] = soundPool.load(this, R.raw.ma, 1)
-        japaneseSounds[31] = soundPool.load(this, R.raw.mi, 1)
-        japaneseSounds[32] = soundPool.load(this, R.raw.mu, 1)
-        japaneseSounds[33] = soundPool.load(this, R.raw.me, 1)
-        japaneseSounds[34] = soundPool.load(this, R.raw.mo, 1)
-        japaneseSounds[35] = soundPool.load(this, R.raw.ya, 1)
-        japaneseSounds[36] = soundPool.load(this, R.raw.yu, 1)
-        japaneseSounds[37] = soundPool.load(this, R.raw.yo, 1)
-        japaneseSounds[38] = soundPool.load(this, R.raw.ra, 1)
-        japaneseSounds[39] = soundPool.load(this, R.raw.ri, 1)
-        japaneseSounds[40] = soundPool.load(this, R.raw.ru, 1)
-        japaneseSounds[41] = soundPool.load(this, R.raw.re, 1)
-        japaneseSounds[42] = soundPool.load(this, R.raw.ro, 1)
-        japaneseSounds[43] = soundPool.load(this, R.raw.wa, 1)
-        japaneseSounds[44] = soundPool.load(this, R.raw.wo, 1)
-        japaneseSounds[45] = soundPool.load(this, R.raw.n, 1)
-        japaneseSounds[46] = soundPool.load(this, R.raw.da, 1)
+    fun loadSounds(context: Context) {
+        soundPool = SoundPool.Builder().build()
+        japaneseSounds[0] = soundPool.load(context, R.raw.a, 1)
+        japaneseSounds[1] = soundPool.load(context, R.raw.i, 1)
+        japaneseSounds[2] = soundPool.load(context, R.raw.u, 1)
+        japaneseSounds[3] = soundPool.load(context, R.raw.e, 1)
+        japaneseSounds[4] = soundPool.load(context, R.raw.o, 1)
+        japaneseSounds[5] = soundPool.load(context, R.raw.ka, 1)
+        japaneseSounds[6] = soundPool.load(context, R.raw.ki, 1)
+        japaneseSounds[7] = soundPool.load(context, R.raw.ku, 1)
+        japaneseSounds[8] = soundPool.load(context, R.raw.ke, 1)
+        japaneseSounds[9] = soundPool.load(context, R.raw.ko, 1)
+        japaneseSounds[10] = soundPool.load(context, R.raw.sa, 1)
+        japaneseSounds[11] = soundPool.load(context, R.raw.si, 1)
+        japaneseSounds[12] = soundPool.load(context, R.raw.su, 1)
+        japaneseSounds[13] = soundPool.load(context, R.raw.se, 1)
+        japaneseSounds[14] = soundPool.load(context, R.raw.so, 1)
+        japaneseSounds[15] = soundPool.load(context, R.raw.ta, 1)
+        japaneseSounds[16] = soundPool.load(context, R.raw.ti, 1)
+        japaneseSounds[17] = soundPool.load(context, R.raw.tu, 1)
+        japaneseSounds[18] = soundPool.load(context, R.raw.te, 1)
+        japaneseSounds[19] = soundPool.load(context, R.raw.to, 1)
+        japaneseSounds[20] = soundPool.load(context, R.raw.na, 1)
+        japaneseSounds[21] = soundPool.load(context, R.raw.ni, 1)
+        japaneseSounds[22] = soundPool.load(context, R.raw.nu, 1)
+        japaneseSounds[23] = soundPool.load(context, R.raw.ne, 1)
+        japaneseSounds[24] = soundPool.load(context, R.raw.no, 1)
+        japaneseSounds[25] = soundPool.load(context, R.raw.ha, 1)
+        japaneseSounds[26] = soundPool.load(context, R.raw.hi, 1)
+        japaneseSounds[27] = soundPool.load(context, R.raw.hu, 1)
+        japaneseSounds[28] = soundPool.load(context, R.raw.he, 1)
+        japaneseSounds[29] = soundPool.load(context, R.raw.ho, 1)
+        japaneseSounds[30] = soundPool.load(context, R.raw.ma, 1)
+        japaneseSounds[31] = soundPool.load(context, R.raw.mi, 1)
+        japaneseSounds[32] = soundPool.load(context, R.raw.mu, 1)
+        japaneseSounds[33] = soundPool.load(context, R.raw.me, 1)
+        japaneseSounds[34] = soundPool.load(context, R.raw.mo, 1)
+        japaneseSounds[35] = soundPool.load(context, R.raw.ya, 1)
+        japaneseSounds[36] = soundPool.load(context, R.raw.yu, 1)
+        japaneseSounds[37] = soundPool.load(context, R.raw.yo, 1)
+        japaneseSounds[38] = soundPool.load(context, R.raw.ra, 1)
+        japaneseSounds[39] = soundPool.load(context, R.raw.ri, 1)
+        japaneseSounds[40] = soundPool.load(context, R.raw.ru, 1)
+        japaneseSounds[41] = soundPool.load(context, R.raw.re, 1)
+        japaneseSounds[42] = soundPool.load(context, R.raw.ro, 1)
+        japaneseSounds[43] = soundPool.load(context, R.raw.wa, 1)
+        japaneseSounds[44] = soundPool.load(context, R.raw.wo, 1)
+        japaneseSounds[45] = soundPool.load(context, R.raw.n, 1)
+        japaneseSounds[46] = soundPool.load(context, R.raw.da, 1)
 
-        specialSounds[0] = soundPool.load(this, R.raw.a__, 1)
-        specialSounds[1] = soundPool.load(this, R.raw.a_nobashi, 1)
-        specialSounds[2] = soundPool.load(this, R.raw.akumnotikara, 1)
-        specialSounds[3] = soundPool.load(this, R.raw.arehadareda, 1)
-        specialSounds[4] = soundPool.load(this, R.raw.debiruai, 1)
-        specialSounds[5] = soundPool.load(this, R.raw.debiruaro_, 1)
-        specialSounds[6] = soundPool.load(this, R.raw.debiruiya_, 1)
-        specialSounds[7] = soundPool.load(this, R.raw.debirukatta, 1)
-        specialSounds[8] = soundPool.load(this, R.raw.debirukikku, 1)
-        specialSounds[9] = soundPool.load(this, R.raw.debirutyopu, 1)
-        specialSounds[10] = soundPool.load(this, R.raw.debiruwingu, 1)
-        specialSounds[11] = soundPool.load(this, R.raw.intro, 1)
-        specialSounds[12] = soundPool.load(this, R.raw.kansou, 1)
-        specialSounds[13] = soundPool.load(this, R.raw.kokosuki, 1)
-        specialSounds[14] = soundPool.load(this, R.raw.maaaaaaaaaaaaaan, 1)
-        specialSounds[15] = soundPool.load(this, R.raw.man, 1)
-        specialSounds[16] = soundPool.load(this, R.raw.maaaaan, 1)
-        specialSounds[17] = soundPool.load(this, R.raw.maaaaan_sage, 1)
-        specialSounds[18] = soundPool.load(this, R.raw.maasorehasoretosite, 1)
-        specialSounds[19] = soundPool.load(this, R.raw.subetewosutetetatakauotoko, 1)
-        specialSounds[20] = soundPool.load(this, R.raw.sumaaaaaan, 1)
-        specialSounds[21] = soundPool.load(this, R.raw.ten, 1)
-        specialSounds[22] = soundPool.load(this, R.raw.wabiruman, 1)
-        specialSounds[23] = soundPool.load(this, R.raw.wakaruman, 1)
-        specialSounds[24] = soundPool.load(this, R.raw.wakaruman_kansou, 1)
+        specialSounds[0] = soundPool.load(context, R.raw.a__, 1)
+        specialSounds[1] = soundPool.load(context, R.raw.a_nobashi, 1)
+        specialSounds[2] = soundPool.load(context, R.raw.akumnotikara, 1)
+        specialSounds[3] = soundPool.load(context, R.raw.arehadareda, 1)
+        specialSounds[4] = soundPool.load(context, R.raw.debiruai, 1)
+        specialSounds[5] = soundPool.load(context, R.raw.debiruaro_, 1)
+        specialSounds[6] = soundPool.load(context, R.raw.debiruiya_, 1)
+        specialSounds[7] = soundPool.load(context, R.raw.debirukatta, 1)
+        specialSounds[8] = soundPool.load(context, R.raw.debirukikku, 1)
+        specialSounds[9] = soundPool.load(context, R.raw.debirutyopu, 1)
+        specialSounds[10] = soundPool.load(context, R.raw.debiruwingu, 1)
+        specialSounds[11] = soundPool.load(context, R.raw.intro, 1)
+        specialSounds[12] = soundPool.load(context, R.raw.kansou, 1)
+        specialSounds[13] = soundPool.load(context, R.raw.kokosuki, 1)
+        specialSounds[14] = soundPool.load(context, R.raw.maaaaaaaaaaaaaan, 1)
+        specialSounds[15] = soundPool.load(context, R.raw.man, 1)
+        specialSounds[16] = soundPool.load(context, R.raw.maaaaan, 1)
+        specialSounds[17] = soundPool.load(context, R.raw.maaaaan_sage, 1)
+        specialSounds[18] = soundPool.load(context, R.raw.maasorehasoretosite, 1)
+        specialSounds[19] = soundPool.load(context, R.raw.subetewosutetetatakauotoko, 1)
+        specialSounds[20] = soundPool.load(context, R.raw.sumaaaaaan, 1)
+        specialSounds[21] = soundPool.load(context, R.raw.ten, 1)
+        specialSounds[22] = soundPool.load(context, R.raw.wabiruman, 1)
+        specialSounds[23] = soundPool.load(context, R.raw.wakaruman, 1)
+        specialSounds[24] = soundPool.load(context, R.raw.wakaruman_kansou, 1)
 
     }
 

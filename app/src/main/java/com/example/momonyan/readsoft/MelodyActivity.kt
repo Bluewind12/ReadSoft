@@ -1,37 +1,35 @@
 package com.example.momonyan.readsoft
 
+import android.media.SoundPool
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.widget.Button
-import android.widget.EditText
+import kotlinx.android.synthetic.main.easy_read_mode_layout.*
 
 class MelodyActivity : AppCompatActivity() {
-    private lateinit var nameEditText: EditText
-    private lateinit var startButton: Button
+    private var nameStrings = "".split("")
     private val sound = MainActivity()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.easy_read_mode_layout)
+
         nameEditText.hint = "名前の入力"
-        nameEditText.inputType = 1
-        startButton.text = "読み上げ"
+        easyReadButton.text = "読み上げ"
 
-        setContentView(nameEditText)
-        setContentView(startButton)
+        sound.loadSounds(this)
 
-        startButton.setOnClickListener {
-            sound.choiseSound("イ")
+        easyReadButton.setOnClickListener {
+            nameStrings = nameEditText.text.split("")
             sound.choiseSound("誰")
             nameVoice()
-            sound.choiseSound("2")
+            sound.choiseSound("1")
             nameVoice()
-            sound.choiseSound("3")
+            sound.choiseSound("2")
+            sound.choiseSound("＞")
         }
-
     }
 
-    fun nameVoice() {
-        val nameStrings = nameEditText.text.split("")
+    private fun nameVoice() {
         for (i in nameStrings) {
             sound.choiseSound(i)
         }
