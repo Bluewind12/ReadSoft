@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
                     seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 // 68 % のようにフォーマト、
                 // この場合、Locale.USが汎用的に推奨される
-                volumeText.text = String.format(Locale.JAPANESE, "%d %%", progress)
+                volumeText.text = String.format(Locale.JAPANESE, "音量　%d %%", progress)
                 volumeInt = progress
             }
 
@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity() {
                     seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 // 68 % のようにフォーマト、
                 // この場合、Locale.USが汎用的に推奨される
-                waitText.text = String.format(Locale.JAPANESE, "%d ms", progress)
+                waitText.text = String.format(Locale.JAPANESE, "文字間の遅延　%d ms", progress)
                 waitInt = progress
             }
 

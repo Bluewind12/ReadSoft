@@ -35,7 +35,7 @@
         android:id="@+id/optionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="32dp"
         android:text="@string/option"
         app:layout_constraintBottom_toTopOf="@+id/melodyButton"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -88,9 +88,9 @@
         android:id="@+id/melodyButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:layout_marginStart="8dp"
-        android:text="簡単読み上げ"
+        android:layout_marginBottom="16dp"
+        android:text="@string/easyMode"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/waitSeek" />
 </android.support.constraint.ConstraintLayout>
