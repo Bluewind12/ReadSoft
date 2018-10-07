@@ -19,13 +19,15 @@ class MelodyActivity : AppCompatActivity() {
         sound.loadSounds(this)
 
         easyReadButton.setOnClickListener {
-            nameStrings = nameEditText.text.split("")
-            sound.choiseSound("誰")
-            nameVoice()
-            sound.choiseSound("1")
-            nameVoice()
-            sound.choiseSound("2")
-            sound.choiseSound("＞")
+            Thread {
+                nameStrings = nameEditText.text.split("")
+                sound.choiseSound("誰")
+                nameVoice()
+                sound.choiseSound("1")
+                nameVoice()
+                sound.choiseSound("2")
+                sound.choiseSound("＞")
+            }.start()
         }
     }
 
