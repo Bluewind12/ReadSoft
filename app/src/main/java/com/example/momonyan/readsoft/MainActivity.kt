@@ -2,6 +2,7 @@ package com.example.momonyan.readsoft
 
 import android.content.Context
 import android.content.Intent
+import android.media.MediaPlayer
 import android.media.SoundPool
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var soundPool: SoundPool
     private var japaneseSounds: MutableList<Int> = mutableListOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
     private var specialSounds: MutableList<Int> = mutableListOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    private var mp: MutableList<MediaPlayer> = mutableListOf(MediaPlayer(), MediaPlayer(), MediaPlayer(), MediaPlayer())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -168,8 +170,6 @@ class MainActivity : AppCompatActivity() {
 
         specialSounds[0] = soundPool.load(context, R.raw.a__, 1)
         specialSounds[1] = soundPool.load(context, R.raw.a_nobashi, 1)
-        specialSounds[2] = soundPool.load(context, R.raw.akumnotikara, 1)
-        specialSounds[3] = soundPool.load(context, R.raw.arehadareda, 1)
         specialSounds[4] = soundPool.load(context, R.raw.debiruai, 1)
         specialSounds[5] = soundPool.load(context, R.raw.debiruaro_, 1)
         specialSounds[6] = soundPool.load(context, R.raw.debiruiya_, 1)
@@ -180,7 +180,6 @@ class MainActivity : AppCompatActivity() {
         specialSounds[11] = soundPool.load(context, R.raw.intro, 1)
         specialSounds[12] = soundPool.load(context, R.raw.kansou, 1)
         specialSounds[13] = soundPool.load(context, R.raw.kokosuki, 1)
-        specialSounds[14] = soundPool.load(context, R.raw.maaaaaaaaaaaaaan, 1)
         specialSounds[15] = soundPool.load(context, R.raw.man, 1)
         specialSounds[16] = soundPool.load(context, R.raw.maaaaan, 1)
         specialSounds[17] = soundPool.load(context, R.raw.maaaaan_sage, 1)
@@ -190,7 +189,18 @@ class MainActivity : AppCompatActivity() {
         specialSounds[21] = soundPool.load(context, R.raw.ten, 1)
         specialSounds[22] = soundPool.load(context, R.raw.wabiruman, 1)
         specialSounds[23] = soundPool.load(context, R.raw.wakaruman, 1)
+
+        //使わない
+        specialSounds[2] = soundPool.load(context, R.raw.akumnotikara, 1)
+        specialSounds[3] = soundPool.load(context, R.raw.arehadareda, 1)
+        specialSounds[14] = soundPool.load(context, R.raw.maaaaaaaaaaaaaan, 1)
         specialSounds[24] = soundPool.load(context, R.raw.wakaruman_kansou, 1)
+
+        //MediaPlayerで
+        mp[0] = MediaPlayer.create(context, R.raw.akumnotikara)
+        mp[1] = MediaPlayer.create(context, R.raw.arehadareda)
+        mp[2] = MediaPlayer.create(context, R.raw.maaaaaaaaaaaaaan)
+        mp[3] = MediaPlayer.create(context, R.raw.wakaruman_kansou)
 
     }
 
@@ -401,13 +411,17 @@ class MainActivity : AppCompatActivity() {
             }
             "力" -> {
                 //悪魔の力身につけた
-                soundPool.play(specialSounds[2], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
+//                soundPool.play(specialSounds[2], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
+                mp[0].start()
                 sleepWait(7200)
+                mp[0].stop()
             }
             "誰" -> {
                 //あれは誰だ
-                soundPool.play(specialSounds[3], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
+                //soundPool.play(specialSounds[3], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
+                mp[1].start()
                 sleepWait(6900)
+                mp[1].stop()
             }
             "捨" -> {
                 //すべてを捨てて戦う男
@@ -427,8 +441,10 @@ class MainActivity : AppCompatActivity() {
             }
             "3" -> {
                 //まーーーん！（長）
-                soundPool.play(specialSounds[14], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
+//                soundPool.play(specialSounds[14], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
+                mp[2].start()
                 sleepWait(11000)
+                mp[2].stop()
             }
             "4" -> {
                 //まーん！（下げ）
@@ -515,8 +531,10 @@ class MainActivity : AppCompatActivity() {
             }
             "＞" -> {
                 //わかるマン（間奏入り）
-                soundPool.play(specialSounds[24], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
+//              soundPool.play(specialSounds[24], volumeInt.toFloat(), volumeInt.toFloat(), 0, 0, 1.0f)
+                mp[3].start()
                 sleepWait(5400)
+                mp[3].stop()
             }
             //待機
             "+" -> sleepWait(500)
